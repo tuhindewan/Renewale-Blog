@@ -1,0 +1,108 @@
+body{
+
+	font-family: 'Oswald', sans-serif;
+	background-color: #EEEDED;
+}
+a{
+	color: #2388c9;
+}
+a:hover{
+	color: #2388c9;
+}
+.navbar-brand img{
+	margin-top: -5px;
+}
+
+.navbar-brand *{
+	color: white;
+}
+.jumbotron{
+	height: 200px;
+	overflow: hidden;
+}
+.jumbotron #details{
+	position: absolute;
+	color: white;
+}
+
+.jumbotron img{
+	width: 100%;
+}
+.jumbotron span{
+	color: #2388c9;
+}
+footer{
+	background: black;
+	height: 50px;
+	line-height: 50px;
+	color: white;
+	letter-spacing: 1px;
+}
+.popular{
+	background: white;
+	padding: 20px;
+	border-radius: 10px;
+	border: 1px solid #E3E3E3;
+}
+.popular img{
+	width: 100%;
+	margin-top: 12px;
+}
+section .widgets{
+	margin-bottom: 20px;
+}
+
+.popular .details {
+	margin-left: -20px;
+}
+.popular .details p{
+	font-family: arial;
+	font-size: 11px;
+}
+.popular ul li{
+	list-style: none;
+}
+.social{
+		background:white;
+		padding: 20px;
+		border-radius: 10px;
+		border: 1px solid #E3E3E3;
+}
+
+.post{
+	background: white;
+	border: 1px solid #E3E3E3;
+	margin: 15px 0px;
+}
+
+.post .post-date{
+	padding: 10px;
+	text-align: center;
+	border-right: 1px solid #E3E3E3;
+}
+.post .post-date .day{
+	font-size: 30px;
+	color: #2388c9;
+}
+.post .post-date .year{
+	font-weight: 100;
+}
+.post .post-title{
+	padding: 10px;
+}
+.post .post-title span{
+	color:  #2388c9;
+	font-weight: 100;
+	margin-left: 10px;
+}
+.post .profile-picture img{
+ width: 80%;
+}
+.post .profile-picture{
+	padding: 25px;
+}
+
+.post a img{
+	width: 100%;
+	margin-top: -10px;
+}
