@@ -76,9 +76,9 @@ section .widgets{
 }
 
 .post .post-date{
-	padding: 10px;
+	padding: 10px 10px 20px 10px;
 	text-align: center;
-	border-right: 1px solid #E3E3E3;
+	
 }
 .post .post-date .day{
 	font-size: 30px;
@@ -88,7 +88,8 @@ section .widgets{
 	font-weight: 100;
 }
 .post .post-title{
-	padding: 10px;
+	padding: -5px 20px 25px 20px;
+	border-left: 1px solid #E3E3E3;
 }
 .post .post-title span{
 	color:  #2388c9;
@@ -96,7 +97,8 @@ section .widgets{
 	margin-left: 10px;
 }
 .post .profile-picture img{
- width: 80%;
+ width: 100%;
+ height: auto;
 }
 .post .profile-picture{
 	padding: 25px;
@@ -104,5 +106,84 @@ section .widgets{
 
 .post a img{
 	width: 100%;
-	margin-top: -10px;
+	margin-top: 2px;
 }
+ .post .description{
+	font-family: arial;
+	font-weight: 100%;
+	padding: 15px;
+	line-height: 20px;
+}
+.post a.btn{
+	margin-left: 15px;
+	margin-bottom: 20px;
+}
+.post .bottom{
+	padding: 10px 20px;
+	border-top: 1px solid #E3E3E3;
+	color: #C6C6C6;
+}
+.post .bottom .first{
+	margin-right: 20px;
+}
+.post .bottom .second{
+	margin-left: 20px;
+}
+nav#pagination{
+	text-align: center;
+}
+.pagination li a{
+	color: #2388c9;
+	padding: 15px 25px;
+	font-size: 18px;
+}
+@media (max-width: 992px){
+	
+	.post .profile-picture img{
+		width: 20%;
+	}
+	.post .profile-picture{
+		text-align: center;
+		margin-top: -40px;
+	}
+	.post .post-title{
+		border-left: none;
+		text-align: center;
+	}
+
+}
+
+@media (max-width: 786px){
+	}
+	.jumbotron #details{
+		margin-top: 20px;
+	}
+	.post .post-title{
+		
+		text-align: center;
+		border: none;
+	}
+	.post .profile-picture img{
+	
+		padding-top: 15px;
+		padding-right: 10px;
+	}
+	.post .profile-picture{
+		text-align: center;
+	}
+	.pagination li a{
+		font-size: 13px;
+		padding: 10px 12px;
+	}
+	footer{
+		font-size: 9px;
+		letter-spacing: 0px;
+	}
+	.navbar-inverse .navbar-nav>li>a {
+		text-align: center;
+	}
+	.navbar-inverse .navbar-nav .open .dropdown-menu>li>a{
+		text-align: center;
+	}
+}
+
