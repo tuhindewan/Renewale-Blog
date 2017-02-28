@@ -8,18 +8,21 @@ require_once('inc/top.php');
 <?php
 require_once('inc/header.php');
 ?>
-<?php 
-      
+      <?php
       $number_of_posts = 3; 
+      if (isset($_GET['page'])) {
+        $page_id = $_GET['page'];
+      }
+      else
+      {
+        $page_id = 1;
+      }
       $statement = $db->prepare("SELECT * FROM posts");
       $statement->execute();
       $result = $statement->fetchAll(PDO::FETCH_ASSOC);
       $total = $statement->rowCount();
       $number_of_pages = ceil($total / $number_of_posts);
-
-      
-
-
+      $posts_start_from = ($page_id -1) * $number_of_posts; 
  ?>
 
 <div class="jumbotron">
@@ -76,7 +79,7 @@ require_once('inc/header.php');
           
           
 <?php
-    $statement = $db->prepare("SELECT * FROM posts WHERE status='publish' ORDER BY id DESC LIMIT $number_of_posts");
+    $statement = $db->prepare("SELECT * FROM posts WHERE status='publish' ORDER BY id DESC LIMIT $posts_start_from , $number_of_posts");
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     if($result){
@@ -141,12 +144,14 @@ require_once('inc/header.php');
 
 <nav id="pagination">
   <ul class="pagination">
-    <?php 
-    for ($i=1; $i <= $number_of_pages ; $i++) { 
-      echo "<li><a href='#'>$i</a></li>";
-    }
 
-     ?>
+          <?php
+          for ($i=1; $i <= $number_of_pages ; $i++) { 
+            echo "<li class = '".($page_id == $i? 'active': '')."'><a href='index.php?page=".$i."'>$i</a></li>";
+          }
+
+           ?>
+     
   </ul>
 </nav>
 
