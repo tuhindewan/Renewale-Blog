@@ -8,6 +8,19 @@ require_once('inc/top.php');
 <?php
 require_once('inc/header.php');
 ?>
+<?php 
+      
+      $number_of_posts = 3; 
+      $statement = $db->prepare("SELECT * FROM posts");
+      $statement->execute();
+      $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+      $total = $statement->rowCount();
+      $number_of_pages = ceil($total / $number_of_posts);
+
+      
+
+
+ ?>
 
 <div class="jumbotron">
   <div class="container">
@@ -63,7 +76,7 @@ require_once('inc/header.php');
           
           
 <?php
-    $statement = $db->prepare("SELECT * FROM posts WHERE status='publish' ORDER BY id DESC LIMIT 3");
+    $statement = $db->prepare("SELECT * FROM posts WHERE status='publish' ORDER BY id DESC LIMIT $number_of_posts");
     $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     if($result){
@@ -128,21 +141,12 @@ require_once('inc/header.php');
 
 <nav id="pagination">
   <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li class="active"><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
+    <?php 
+    for ($i=1; $i <= $number_of_pages ; $i++) { 
+      echo "<li><a href='#'>$i</a></li>";
+    }
+
+     ?>
   </ul>
 </nav>
 
