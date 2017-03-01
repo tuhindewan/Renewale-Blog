@@ -17,18 +17,59 @@ require_once('inc/header.php');
       {
         $page_id = 1;
       }
-      $statement = $db->prepare("SELECT * FROM posts");
-      $statement->execute();
-      $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-      $total = $statement->rowCount();
-      $number_of_pages = ceil($total / $number_of_posts);
-      $posts_start_from = ($page_id -1) * $number_of_posts; 
+      if (isset($_POST['search'])) {
+        $search = $_POST['search-title'];
+         $statement = $db->prepare("SELECT * FROM posts WHERE status = 'publish' AND tags LIKE '%$search%'");
+                $statement->execute();       
+              $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+              $total = $statement->rowCount();
+              $number_of_pages = ceil($total / $number_of_posts);
+              $posts_start_from = ($page_id -1) * $number_of_posts;    
+      }
+      else{
+      if (isset($cat_name)) {
+        $statement = $db->prepare("SELECT * FROM posts WHERE status = 'publish' AND categories = '$cat_name'");
+                          $statement->execute();       
+              $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+              $total = $statement->rowCount();
+              $number_of_pages = ceil($total / $number_of_posts);
+              $posts_start_from = ($page_id -1) * $number_of_posts;   
+      }
+      else
+      {
+         $statement = $db->prepare("SELECT * FROM posts WHERE status = 'publish'");
+            
+              $statement->execute();
+              $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+              $total = $statement->rowCount();
+              $number_of_pages = ceil($total / $number_of_posts);
+              $posts_start_from = ($page_id -1) * $number_of_posts; 
+      }
+    }
+            
+  
  ?>
+ <?php 
+
+if (isset($_GET['cat'])) {
+
+    $cat_id = $_GET['cat'];
+
+    $statement = $db->prepare("SELECT * FROM categories WHERE id = $cat_id");
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    foreach($result as $row){
+      $cat_name = $row['category'];
+    }
+}
+
+  ?>
 
 <div class="jumbotron">
   <div class="container">
     <div id="details" class="animated fadeInLeft">
       <h1>Renewale<span> Blog</span></h1>
+
       <p>This is an online Tutorial Huge Portal.So Now Shine With Us</p>
     </div>
   </div>
@@ -40,6 +81,8 @@ require_once('inc/header.php');
       <div class="col-md-8">
       <?php
       $statement = $db->prepare("SELECT * FROM posts WHERE status = 'publish' ORDER BY id DESC LIMIT 5 ");
+
+     
       $statement->execute();
       $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         ?>
@@ -79,8 +122,23 @@ require_once('inc/header.php');
           
           
 <?php
-    $statement = $db->prepare("SELECT * FROM posts WHERE status='publish' ORDER BY id DESC LIMIT $posts_start_from , $number_of_posts");
-    $statement->execute();
+      if (isset($_POST['search'])) {
+        $search = $_POST['search-title'];
+        $statement = $db->prepare("SELECT * FROM posts WHERE status='publish' AND tags LIKE '%$search%' ORDER BY id DESC LIMIT $posts_start_from , $number_of_posts ");
+      }
+      else
+      {
+      if (isset($cat_name)) {
+          $statement = $db->prepare("SELECT * FROM posts WHERE status='publish' AND categories = '$cat_name' ORDER BY id DESC LIMIT $posts_start_from , $number_of_posts ");
+      }else
+      {
+        $statement = $db->prepare("SELECT * FROM posts WHERE status='publish' ORDER BY id DESC LIMIT $posts_start_from , $number_of_posts");
+   
+      }
+    }
+    
+    
+       $statement->execute();
     $result = $statement->fetchAll(PDO::FETCH_ASSOC);
     if($result){
     foreach($result as $row){
@@ -147,7 +205,7 @@ require_once('inc/header.php');
 
           <?php
           for ($i=1; $i <= $number_of_pages ; $i++) { 
-            echo "<li class = '".($page_id == $i? 'active': '')."'><a href='index.php?page=".$i."'>$i</a></li>";
+            echo "<li class = '".($page_id == $i? 'active': '')."'><a href='index.php?page=".$i."&".(isset($cat_name)?"cat=$cat_id":" ")."'>$i</a></li>";
           }
 
            ?>
