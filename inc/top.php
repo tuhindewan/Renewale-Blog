@@ -1,3 +1,9 @@
+<?php 
+
+ob_start();
+ ?>
+
+
 <?php require_once('connection.php');?>
 <!DOCTYPE html>
 <html lang="en">

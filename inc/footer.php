@@ -1,6 +1,6 @@
 <footer>
   <div class="container">
-    Copyright &copy; by <a href="">Md.Saiduzzaman</a>All Rights Reserved From 2017 to Running.
+    Copyright &copy; by <a href="">Md.Saiduzzaman</a>All Rights Reserved From 2017 to <?php echo date('Y'); ?>.
   </div>
 </footer>
 
