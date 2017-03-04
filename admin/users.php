@@ -12,10 +12,19 @@
     <div class="col-md-9">
       <h1><i class="fa fa-users" aria-hidden="true"></i> Users <small>View All Users</small></h1><hr>
       <ol class="breadcrumb">
-        <li><a href="index.html"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
+        <li><a href="index.php"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
         <li class="active"><i class="fa fa-users" aria-hidden="true"></i> Users</li>
-      </ol>            
-    </div>
+      </ol>  
+
+      <?php 
+
+          $statement = $db->prepare("SELECT * FROM users ORDER BY id DESC");
+          $statement->execute();
+          $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+          if ($result) {
+           
+       ?>          
+    
     <div class="row">
       <div class="col-sm-8">
         <form action="" method="">
@@ -49,57 +58,55 @@
           <th>Image</th>
           <th>Password</th>
           <th>Roll</th>
-          <th>Post</th>
           <th>Edit</th>
           <th>Del</th>
         </tr>
       </thead>
       <tbody>
+      <?php foreach($result as $row){
+
+        $id = $row['id'];
+        $first_name = ucfirst($row['first_name']);
+        $last_name = ucfirst($row['last_name']);
+        $email = $row['email'];
+        $username = $row['username'];
+        $image = $row['image'];
+        $role = $row['role'];
+        $date = getdate($row['date']);
+        $day = $date['mday'];
+        $month = substr($date['month'], 0,3);
+        $year = $date['year'];
+       ?>
         <tr>
-          <th><input type="checkbox" name=""></th>
-          <th>1</th>
-          <th>25 Jan 2016</th>
-          <th>Md. Saiduzzaman</th>
-          <th>tuhin</th>
-          <th>tuhinsshadow@gmail.com</th>
-          <th><img src="img/unknown-profile.png" width="30px"></th>
-          <th>12345</th>
-          <th>Admin</th>
-          <th>11</th>
-          <th><a href=""><i class="fa fa-pencil"></i></a></th>
-          <th><a href=""><i class="fa fa-times"></i></a></th>
+          <td><input type="checkbox" name=""></td>
+          <td><?php echo $id; ?></td>
+          <td><?php echo "$day $month $year"; ?></td>
+          <td><?php echo "$first_name $last_name"; ?></td>
+          <td><?php echo $username; ?></td>
+          <td><?php echo $email; ?></td>
+          <td><img src="img/<?php echo $image ?>" width="30px"></td>
+          <td>**********</td>
+          <td><?php echo $role; ?></td>
+          <td><a href="add-user.php?edit=<?php echo $id; ?>"><i class="fa fa-pencil"></i></a></td>
+          <td><a href="users.php?del=<?php echo $id; ?>"><i class="fa fa-times"></i></a></td>
         </tr>
-         <tr>
-          <th><input type="checkbox" name=""></th>
-          <th>1</th>
-          <th>25 Jan 2016</th>
-          <th>Md. Saiduzzaman</th>
-          <th>tuhin</th>
-          <th>tuhinsshadow@gmail.com</th>
-          <th><img src="img/unknown-profile.png" width="30px"></th>
-          <th>12345</th>
-          <th>Admin</th>
-          <th>11</th>
-          <th><a href=""><i class="fa fa-pencil"></i></a></th>
-          <th><a href=""><i class="fa fa-times"></i></a></th>
-        </tr>
-         <tr>
-          <th><input type="checkbox" name=""></th>
-          <th>1</th>
-          <th>25 Jan 2016</th>
-          <th>Md. Saiduzzaman</th>
-          <th>tuhin</th>
-          <th>tuhinsshadow@gmail.com</th>
-          <th><img src="img/unknown-profile.png" width="30px"></th>
-          <th>12345</th>
-          <th>Admin</th>
-          <th>11</th>
-          <th><a href=""><i class="fa fa-pencil"></i></a></th>
-          <th><a href=""><i class="fa fa-times"></i></a></th>
-        </tr>
-        
+
+          <?php  } ?>
       </tbody>
     </table>
+    <?php
+
+              
+
+          }
+          else
+          {
+            echo "<center><h2>No Users Available Now</h2></center>";
+          }
+          
+
+    ?>
+    </div>
   </div>
 </div>
 <?php require_once('inc/footer.php');?>

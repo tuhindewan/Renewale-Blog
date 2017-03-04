@@ -1,5 +1,5 @@
 <footer class="text-center">
-  Copyright &copy; by <a href="">Md. Saiduzzaman</a> From 2011 To Running
+  Copyright &copy; by <a href="">Md. Saiduzzaman</a> From 2017 To <?php echo date('Y'); ?>
 </footer>
   </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
