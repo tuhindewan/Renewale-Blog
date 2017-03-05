@@ -1,4 +1,30 @@
 <?php require_once('inc/top.php');?>
+<?php 
+
+if (isset($_GET['del'])) {
+  $del_id = $_GET['del'];
+
+
+
+
+      $statement = $db->prepare("DELETE FROM users WHERE id= $del_id ");
+      $statement->execute();
+     
+
+      if ($statement) {
+        $success_message = "User Has Been Deleted Successfully.";
+      }
+      else{
+        $error_message = "User Has Not Been Deleted.";
+      }
+
+   
+
+      
+     
+}
+
+ ?>
   </head>
   <body>
   <div id="wrapper">
@@ -40,12 +66,16 @@
             </div>
             <div class="col-xs-8">
               <input type="submit" name="" value="Apply" class="btn btn-success">
-              <a href="" class="btn btn-primary">Add New</a>
+              <a href="users.php" class="btn btn-primary">Add New</a>
             </div>
           </div>
         </form>
       </div>
     </div>
+                      <?php
+                      if(isset($error_message)) {echo "<span style='color:red;' class='pull-right'>$error_message</span>";}
+                      if(isset($success_message)) {echo "<span style='color:green;' class='pull-right'>$success_message</span>";}
+                      ?>
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
@@ -77,6 +107,7 @@
         $month = substr($date['month'], 0,3);
         $year = $date['year'];
        ?>
+
         <tr>
           <td><input type="checkbox" name=""></td>
           <td><?php echo $id; ?></td>
