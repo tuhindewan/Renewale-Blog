@@ -4,9 +4,6 @@
 if (isset($_GET['del'])) {
   $del_id = $_GET['del'];
 
-
-
-
       $statement = $db->prepare("DELETE FROM users WHERE id= $del_id ");
       $statement->execute();
      
@@ -16,15 +13,37 @@ if (isset($_GET['del'])) {
       }
       else{
         $error_message = "User Has Not Been Deleted.";
-      }
-
-   
-
-      
-     
+      }   
 }
 
  ?>
+ <?php 
+
+if (isset($_POST['checkboxes'])) {
+  
+    foreach ($_POST['checkboxes'] as  $user_id) {
+      
+      $bulk_option = $_POST['bulk-options'];
+
+      if ($bulk_option == 'delete') {
+        
+              $statement = $db->prepare("DELETE FROM users WHERE id= $user_id ");
+              $statement->execute();
+      }
+      else if ($bulk_option == 'admin') {
+              $statement = $db->prepare("UPDATE  `cms`.`users` SET  `role` =  'admin' WHERE  `users`.`id` =$user_id");
+              $statement->execute();
+        
+      }
+      else if ($bulk_option == 'author') {
+             $statement = $db->prepare("UPDATE  `cms`.`users` SET  `role` =  'author' WHERE  `users`.`id` =$user_id");
+              $statement->execute();
+      }
+    }
+}
+
+
+  ?>
   </head>
   <body>
   <div id="wrapper">
@@ -50,14 +69,13 @@ if (isset($_GET['del'])) {
           if ($result) {
            
        ?>          
-    
+ <form action="" method="post">
     <div class="row">
       <div class="col-sm-8">
-        <form action="" method="">
-          <div class="row">
+         <div class="row">
             <div class="col-xs-4">
               <div class="form-group">
-                <select id="" name="" class="form-control">
+                <select id="" name="bulk-options" class="form-control">
                   <option value="delete">Delete</option>
                   <option value="author">Change To Author</option>
                   <option value="admin">Change To Admin</option>
@@ -69,7 +87,6 @@ if (isset($_GET['del'])) {
               <a href="users.php" class="btn btn-primary">Add New</a>
             </div>
           </div>
-        </form>
       </div>
     </div>
                       <?php
@@ -79,7 +96,7 @@ if (isset($_GET['del'])) {
     <table class="table table-bordered table-striped table-hover">
       <thead>
         <tr>
-          <th><input type="checkbox" name=""></th>
+          <th><input type="checkbox" id="selectallboxes" name=""></th>
           <th>Sr #</th>
           <th>Date</th>
           <th>Name</th>
@@ -109,7 +126,7 @@ if (isset($_GET['del'])) {
        ?>
 
         <tr>
-          <td><input type="checkbox" name=""></td>
+          <td><input type="checkbox" class="checkboxes"  name="checkboxes[]" value="<?php echo $id;?>"></td>
           <td><?php echo $id; ?></td>
           <td><?php echo "$day $month $year"; ?></td>
           <td><?php echo "$first_name $last_name"; ?></td>
@@ -117,7 +134,7 @@ if (isset($_GET['del'])) {
           <td><?php echo $email; ?></td>
           <td><img src="img/<?php echo $image ?>" width="30px"></td>
           <td>**********</td>
-          <td><?php echo $role; ?></td>
+          <td><?php echo ucfirst($role); ?></td>
           <td><a href="add-user.php?edit=<?php echo $id; ?>"><i class="fa fa-pencil"></i></a></td>
           <td><a href="users.php?del=<?php echo $id; ?>"><i class="fa fa-times"></i></a></td>
         </tr>
@@ -126,17 +143,14 @@ if (isset($_GET['del'])) {
       </tbody>
     </table>
     <?php
-
-              
-
           }
           else
           {
             echo "<center><h2>No Users Available Now</h2></center>";
-          }
-          
+          }     
 
     ?>
+    </form>
     </div>
   </div>
 </div>
