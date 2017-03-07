@@ -1,4 +1,15 @@
+
 <?php require_once('inc/top.php');?>
+<?php 
+
+if (!isset($_SESSION['username'])) {
+  header('Location:login.php');
+}
+else if (isset($_SESSION['username']) && $_SESSION['role']=='author') {
+  header('Location:login.php');
+}
+
+?>
 <?php 
 
 if (isset($_GET['del'])) {
