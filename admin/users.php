@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
   header('Location:login.php');
 }
 else if (isset($_SESSION['username']) && $_SESSION['role']=='author') {
-  header('Location:login.php');
+  header('Location:index.php');
 }
 
 ?>
@@ -16,15 +16,18 @@ if (isset($_GET['del'])) {
   $del_id = $_GET['del'];
 
       $statement = $db->prepare("DELETE FROM users WHERE id= $del_id ");
-      $statement->execute();
-     
 
+      if (isset($_SESSION['username']) && $_SESSION['role']=='admin') {
+     
+      $statement->execute();
       if ($statement) {
         $success_message = "User Has Been Deleted Successfully.";
       }
       else{
         $error_message = "User Has Not Been Deleted.";
-      }   
+      }
+      }
+   
 }
 
  ?>
@@ -146,7 +149,7 @@ if (isset($_POST['checkboxes'])) {
           <td><img src="img/<?php echo $image ?>" width="30px"></td>
           <td>**********</td>
           <td><?php echo ucfirst($role); ?></td>
-          <td><a href="add-user.php?edit=<?php echo $id; ?>"><i class="fa fa-pencil"></i></a></td>
+          <td><a href="edit-user.php?edit=<?php echo $id; ?>"><i class="fa fa-pencil"></i></a></td>
           <td><a href="users.php?del=<?php echo $id; ?>"><i class="fa fa-times"></i></a></td>
         </tr>
 

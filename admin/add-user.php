@@ -6,8 +6,10 @@
 if (!isset($_SESSION['username'])) {
   header('Location:login.php');
 }
-
-  ?>
+else if (isset($_SESSION['username']) && $_SESSION['role']=='author') {
+  header('Location:index.php');
+}
+?>
 
   </head>
   <body>
@@ -153,8 +155,10 @@ if (!isset($_SESSION['username'])) {
                 <input type="submit" value="Add User" name="submit" class="btn btn-primary">
               </form>
             </div>
-            <div class="col-md-8">
-</div>
+            <div class="col-md-4">
+
+            
+            </div>
           </div>
 
     </div>
