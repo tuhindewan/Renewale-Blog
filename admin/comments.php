@@ -276,7 +276,7 @@ if (isset($_POST['checkboxes'])) {
           <td><?php echo "$day $month $year"; ?></td>
           <td><?php echo $username; ?></td>
           <td><?php echo $comment; ?></td>
-          <td><?php echo ucfirst($status); ?></td>
+          <td style=" color:<?php if ($status == 'approve') { echo 'green';}else if( $status == 'pending'){echo 'red';}?>"><?php echo ucfirst($status); ?></td>
           <td><a href="comments.php?approve=<?php echo $id; ?>">Approve</a></td>
           <td><a href="comments.php?unapprove=<?php echo $id; ?>">Unapprove</a></td>
           <td><a href="comments.php?reply=<?php echo $post_id;?>"<i class="fa fa-reply"></i></a></td>
