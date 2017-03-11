@@ -15,7 +15,11 @@ else if (isset($_SESSION['username']) && $_SESSION['role']=='author') {
 if (isset($_GET['del'])) {
   $del_id = $_GET['del'];
 
-      $statement = $db->prepare("DELETE FROM users WHERE id= $del_id ");
+      $statement = $db->prepare("SELECT * FROM users WHERE id= $del_id "); 
+      $statement->execute();
+      $total = $statement->rowCount();   
+      if ($total) {
+                 $statement = $db->prepare("DELETE FROM users WHERE id= $del_id ");
 
       if (isset($_SESSION['username']) && $_SESSION['role']=='admin') {
      
@@ -27,7 +31,11 @@ if (isset($_GET['del'])) {
         $error_message = "User Has Not Been Deleted.";
       }
       }
-   
+         }   
+         else
+         {
+          header('Location:index.php');
+         }
 }
 
  ?>

@@ -6,7 +6,7 @@
               <span class="badge">14</span>
               <i class="fa fa-file-text" aria-hidden="true"></i> All Posts
             </a>
-            <a href="#" class="list-group-item">
+            <a href="comments.php" class="list-group-item">
               <span class="badge">14</span>
               <i class="fa fa-comment" aria-hidden="true"></i> Comments
             </a>
