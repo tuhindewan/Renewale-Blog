@@ -119,9 +119,9 @@ if(isset($_POST['submit']))
   </div>
 </div>
 <a href="img/<?php echo $image; ?>"><img src="img/<?php echo $image; ?>" alt="post-image"></a>
-<p class="description">
+<div class="description">
   <?php echo $post_data; ?>
-</p>
+</div>
 <div class="bottom">
 <span class="first"><i class="fa fa-folder" aria-hidden="true"></i> <a href=""><?php echo ucfirst($categories); ?> </a></span> |
 <span class="second"><i class="fa fa-comment" aria-hidden="true"></i><a href=""> Comment</a></span>

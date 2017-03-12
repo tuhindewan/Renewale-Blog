@@ -177,9 +177,9 @@ if (isset($_GET['cat'])) {
     </div>
 
     <a href="post.php?post_id=<?php echo $id;?>"><img src="img/<?php echo $image;?>" alt="post-image"></a>
-    <p class="description">
-      <?php echo substr($post_data, 0,300)." ......";?>
-    </p>
+    <div class="description">
+      <p><?php echo substr($post_data, 0,300)." ......";?></p>
+    </div>
     <a href="post.php?post_id=<?php echo $id;?>" class="btn btn-primary">Read More....</a>
     <div class="bottom">
     <span class="first"><i class="fa fa-folder" aria-hidden="true"></i><a href=""> <?php echo ucfirst($categories);?></a></span> |

@@ -37,7 +37,11 @@ if (!isset($_SESSION['username'])) {
                     $statement = $db->prepare("INSERT INTO media (image) VALUES ('$image')");
                     $statement->execute();
                     if ($statement) {
-                      move_uploaded_file($tmp_name,"media/$image");
+                      $path = "media/$image";
+                      if (move_uploaded_file($tmp_name,$path)) {
+                        copy($path,"../$path");
+                      }
+                      
                     }
                   }
                 }

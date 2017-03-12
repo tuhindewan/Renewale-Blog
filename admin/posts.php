@@ -109,7 +109,7 @@ if (isset($_POST['checkboxes'])) {
             </div>
             <div class="col-xs-8">
               <input type="submit" name="" value="Apply" class="btn btn-success">
-              <a href="users.php" class="btn btn-primary">Add New</a>
+              <a href="add-post.php" class="btn btn-primary">Add New</a>
             </div>
           </div>
       </div>
