@@ -7,8 +7,43 @@ if (!isset($_SESSION['username'])) {
   header('Location:login.php');
 }
 $session_username = $_SESSION['username'];
+$session_role = $_SESSION['role'];
 $session_author_image = $_SESSION['author_image'];
-  ?>
+?>
+
+
+<?php 
+
+if (isset($_GET['edit'])) {
+  $edit_id = $_GET['edit'];
+
+  if ($session_role == 'admin') {
+    $statement = $db->prepare("SELECT * FROM posts WHERE id = '$edit_id'");
+  }
+  else if ($session_role == 'author') {
+    $statement = $db->prepare("SELECT * FROM posts WHERE id = '$edit_id' AND author = '$session_username'");
+  }
+  $statement->execute();
+  $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+  if ($result) { 
+    foreach($result as $row){
+
+      $title = $row['title'];
+      $post_data = $row['post_data'];
+      $image = $row['image'];
+      $categories = $row['categories'];
+      $tags = $row['tags'];
+      $status = $row['status'];
+
+    }
+    
+  }
+  else{
+    header('location:posts.php');
+  }
+}
+
+?>
 
   </head>
   <body>
@@ -21,45 +56,47 @@ $session_author_image = $_SESSION['author_image'];
     <?php require_once('inc/sidebar.php');?>
     </div>
     <div class="col-md-9">
-      <h1><i class="fa fa-plus-square" aria-hidden="true"></i> Add Post <small>Add New Post</small></h1><hr>
+      <h1><i class="fa fa-pencil" aria-hidden="true"></i> Edit Post <small>Edit Post Details</small></h1><hr>
       <ol class="breadcrumb">
         <li><a href="index.php"><i class="fa fa-tachometer" aria-hidden="true"></i> Dashboard</a></li>
-        <li class="active"><i class="fa fa-plus-square" aria-hidden="true"></i> Add Post</li>
+        <li class="active"><i class="fa fa-pencil" aria-hidden="true"></i> Edit Post</li>
       </ol>
         <?php 
 
-        if (isset($_POST['submit'])) {
-          $date = time();
-          $title = $_POST['title'];
-          $post_data = $_POST['post-data'];
-          $categories = $_POST['categories'];
-          $tags = $_POST['tags'];
-          $status = $_POST['status'];
-          $post_image = $_FILES['image']['name'];
-          $tmp_name = $_FILES['image']['tmp_name'];
+        if (isset($_POST['update'])) {
+          $up_title = $_POST['title'];
+          $up_post_data = $_POST['post-data'];
+          $up_categories = $_POST['categories'];
+          $up_tags = $_POST['tags'];
+          $up_status = $_POST['status'];
+          $up_post_image = $_FILES['image']['name'];
+          $up_tmp_name = $_FILES['image']['tmp_name'];
 
-          if (empty($title) or empty($post_data) or empty($tags) or empty($post_image)) {
+          if (empty($up_post_image)) {
+            $up_post_image = $image;
+          }
+
+          if (empty($title) or empty($post_data) or empty($tags) or empty($up_post_image)) {
             $error_message = "All (*) Fields Are Required.";
           }
           else
           {
-            $statement = $db->prepare("INSERT INTO posts (date,title,author,author_image,image,categories,tags,post_data,views,status) VALUES ('$date','$title','$session_username','$session_author_image','$post_image','$categories','$tags','$post_data','0','$status')");
+            $statement = $db->prepare("UPDATE posts SET title = '$up_title',image = '$up_post_image',categories = '$up_categories', tags = '$up_tags',post_data = '$up_post_data',status = '$up_status' WHERE id = '$edit_id'");
             $statement->execute();
             if ($statement) {
-              $success_message = "Post Has Been Added Successfully.";
-              $title = "";
-              $post_data = "";
-              $tags = "";
-              $categories = "";
-              $status = "";
-              $path = "img/$post_image";
-              if(move_uploaded_file($tmp_name, $path)){
-              copy($path,"../$path");
+              $success_message = "Post Has Been Updated Successfully.";
+              header("Location:edit-post.php?edit=$edit_id");
+              $path = "img/$up_post_image";
+              if (!empty($up_post_image)) {
+                 if(move_uploaded_file($up_tmp_name, $path)){
+                  copy($path,"../$path");
               }
+              }
+
             }
             else
             {
-              $error_message = "Post has Not Been Added.";
+              $error_message = "Post has Not Been Updated.";
             }
 
           }
@@ -136,7 +173,7 @@ $session_author_image = $_SESSION['author_image'];
                                           </div>
                             </div>
                           </div>
-                          <input type="submit" name="submit" class="btn btn-primary" value="Add Post">
+                          <input type="submit" name="update" class="btn btn-primary" value="Update Post">
 
           </form>
         </div>
