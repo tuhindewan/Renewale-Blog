@@ -100,9 +100,9 @@ else
 
                         else
                         {
-                         $statement = $db->prepare("UPDATE  `cms`.`users` SET  `first_name` =  '$first_name',`last_name` =  '$last_name',`image` =  '$image',`details` =  '$details' WHERE  `users`.`id` =$edit_id");
+                         $statement = $db->prepare("UPDATE `users` SET  `first_name` =  '$first_name',`last_name` =  '$last_name',`image` =  '$image',`details` =  '$details' WHERE  `users`.`id` =$edit_id");
                          if (isset($password)) {
-                           $statement = $db->prepare("UPDATE  `cms`.`users` SET  `first_name` =  '$first_name',`last_name` =  '$last_name',`image` =  '$image',`details` =  '$details',`password` =  '$insert_password' WHERE  `users`.`id` =$edit_id");
+                           $statement = $db->prepare("UPDATE `users` SET  `first_name` =  '$first_name',`last_name` =  '$last_name',`image` =  '$image',`details` =  '$details',`password` =  '$insert_password' WHERE  `users`.`id` =$edit_id");
                          }
                          $statement->execute();
                          

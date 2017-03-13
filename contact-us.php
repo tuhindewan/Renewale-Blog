@@ -7,6 +7,8 @@ require_once('inc/top.php');
 require_once('inc/header.php');
 ?>
 
+
+
 <div class="jumbotron">
   <div class="container">
     <div id="details" class="animated fadeInLeft">
@@ -26,35 +28,68 @@ require_once('inc/header.php');
         </div>
 
         <div class="col-md-12 contact-form">
+        <?php 
+
+        if (isset($_POST['submit'])) {
+          $name = $row['name'];
+          $email = $row['email'];
+          $website = $row['website'];
+          $comment = $row['comment'];
+
+          $to = "tuhinsshadow@gmail.com";
+          $subject = "Message From $name";
+          $message = "Name: $name \n\nEmail: $email \n\nWebsite: $website \n\nMessage: $comment \n\n";
+          $header = "From: $name<$email>";
+
+          if (empty($name) or empty($email) or empty($comment)) {
+            $error_message = "All (*) Fields Are Required";
+          }
+          else
+          {
+            if(mail($to,$subject,$message,$header)){
+              $success_message = "Message Has Been sent";
+            }
+            else{
+              $error_message = "Message Has Not Been Sent";
+            }
+          }
+        }
+
+
+         ?>
         <h2>Contact Form</h2><hr>
-          <form class="form-horizontal" action="" method="">
+          <form class="form-horizontal" action="" method="post">
           <div class="form-group">
     <label for="full-name" class="col-sm-2 control-label">Full Name* :</label>
+                      <?php
+                      if(isset($error_message)) {echo "<span style='color:red;' class='pull-right'>$error_message</span>";}
+                      if(isset($success_message)) {echo "<span style='color:green;' class='pull-right'>$success_message</span>";}
+                      ?>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputEmail3" placeholder="Full Name">
+      <input type="text" class="form-control" id="inputEmail3" name="name" placeholder="Full Name">
     </div>
   </div>
   <div class="form-group">
     <label for="email" class="col-sm-2 control-label">Email* :</label>
     <div class="col-sm-10">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+      <input type="email" name="email" class="form-control" id="inputEmail3" placeholder="Email">
     </div>
   </div>
   <div class="form-group">
     <label for="website" class="col-sm-2 control-label">Website :</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="inputEmail3" placeholder="website">
+      <input type="text" name="website" class="form-control" id="inputEmail3" placeholder="website">
     </div>
   </div>
   <div class="form-group">
     <label for="message" class="col-sm-2 control-label">Message :</label>
     <div class="col-sm-10">
-      <textarea class="form-control" rows="10" cols="30" placeholder="Your Message Sould Be Here" id="message"></textarea>
+      <textarea class="form-control" name="comment" rows="10" cols="30" placeholder="Your Message Sould Be Here" id="message"></textarea>
     </div>
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <input type="submit" name="submit" value="Submit" class="btn btn-primary">
     </div>
   </div>
 </form>

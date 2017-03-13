@@ -53,12 +53,12 @@ if (isset($_POST['checkboxes'])) {
               $statement->execute();
       }
       else if ($bulk_option == 'admin') {
-              $statement = $db->prepare("UPDATE  `cms`.`users` SET  `role` =  'admin' WHERE  `users`.`id` =$user_id");
+              $statement = $db->prepare("UPDATE  `users` SET  `role` =  'admin' WHERE  `users`.`id` =$user_id");
               $statement->execute();
         
       }
       else if ($bulk_option == 'author') {
-             $statement = $db->prepare("UPDATE  `cms`.`users` SET  `role` =  'author' WHERE  `users`.`id` =$user_id");
+             $statement = $db->prepare("UPDATE  `users` SET  `role` =  'author' WHERE  `users`.`id` =$user_id");
               $statement->execute();
       }
     }
@@ -106,7 +106,7 @@ if (isset($_POST['checkboxes'])) {
             </div>
             <div class="col-xs-8">
               <input type="submit" name="" value="Apply" class="btn btn-success">
-              <a href="users.php" class="btn btn-primary">Add New</a>
+              <a href="add-user.php" class="btn btn-primary">Add New</a>
             </div>
           </div>
       </div>

@@ -51,7 +51,7 @@ if (isset($_GET['unapprove'])) {
       $statement->execute();
       $total = $statement->rowCount();   
       if ($total) {
-                 $statement = $db->prepare("UPDATE  `cms`.`comments` SET  `status` =  'pending' WHERE  `comments`.`id` =$unapprove_id");
+                 $statement = $db->prepare("UPDATE `comments` SET  `status` =  'pending' WHERE  `comments`.`id` =$unapprove_id");
 
       if (isset($_SESSION['username']) && $_SESSION['role']=='admin') {
      
@@ -81,7 +81,7 @@ if (isset($_GET['approve'])) {
       $statement->execute();
       $total = $statement->rowCount();   
       if ($total) {
-                 $statement = $db->prepare("UPDATE  `cms`.`comments` SET  `status` =  'approve' WHERE  `comments`.`id` =$approve_id");
+                 $statement = $db->prepare("UPDATE `comments` SET  `status` =  'approve' WHERE  `comments`.`id` =$approve_id");
 
       if (isset($_SESSION['username']) && $_SESSION['role']=='admin') {
      
@@ -116,7 +116,7 @@ if (isset($_POST['checkboxes'])) {
               $statement->execute();
       }
       else if ($bulk_option == 'approve') {
-              $statement = $db->prepare("UPDATE  `cms`.`comments` SET  `status` =  'approve' WHERE  `comments`.`id` =$user_id");
+              $statement = $db->prepare("UPDATE `comments` SET  `status` =  'approve' WHERE  `comments`.`id` =$user_id");
               $statement->execute();
         
       }

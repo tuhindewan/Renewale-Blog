@@ -52,12 +52,12 @@ if (isset($_POST['checkboxes'])) {
               $statement->execute();
       }
       else if ($bulk_option == 'publish') {
-              $statement = $db->prepare("UPDATE  `cms`.`posts` SET  `status` =  'publish' WHERE  `posts`.`id` =$user_id");
+              $statement = $db->prepare("UPDATE  `posts` SET  `status` =  'publish' WHERE  `posts`.`id` =$user_id");
               $statement->execute();
         
       }
       else if ($bulk_option == 'draft') {
-             $statement = $db->prepare("UPDATE  `cms`.`posts` SET  `status` =  'draft' WHERE  `posts`.`id` =$user_id");
+             $statement = $db->prepare("UPDATE  `posts` SET  `status` =  'draft' WHERE  `posts`.`id` =$user_id");
               $statement->execute();
       }
     }

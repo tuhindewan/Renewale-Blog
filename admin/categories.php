@@ -72,7 +72,7 @@ if (isset($_POST['update'])) {
         }
         else
         {
-          $statement = $db->prepare("UPDATE  `cms`.`categories` SET  `category` =  '$cat_name' WHERE  `categories`.`id` = $edit_id");
+          $statement = $db->prepare("UPDATE `categories` SET  `category` =  '$cat_name' WHERE  `categories`.`id` = $edit_id");
           $statement->execute();
           if ($statement) {
             $up_message = 'Category Has Been Updated Successfully.';

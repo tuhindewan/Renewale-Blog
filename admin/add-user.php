@@ -71,7 +71,7 @@ else if (isset($_SESSION['username']) && $_SESSION['role']=='author') {
                           
                         }
                         else{
-                            $statement = $db->prepare("INSERT INTO `cms`.`users` (`id`, `date`, `first_name`, `last_name`, `username`, `email`, `image`, `password`, `role`) VALUES (NULL, '$date', '$first_name', '$last_name', '$username', '$email', '$image', '$password', '$role')");
+                            $statement = $db->prepare("INSERT INTO `users` (`id`, `date`, `first_name`, `last_name`, `username`, `email`, `image`, `password`, `role`) VALUES (NULL, '$date', '$first_name', '$last_name', '$username', '$email', '$image', '$password', '$role')");
                             $statement->execute();  
 
                               if ($statement) {

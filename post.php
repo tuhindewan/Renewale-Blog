@@ -14,7 +14,7 @@ if (isset($_GET['post_id'])) {
   $post_id = $_GET['post_id'];
 
 
-        $statement = $db->prepare("UPDATE  `cms`.`posts` SET  `views` =  views + 1 WHERE  `posts`.`id` =$post_id;");
+        $statement = $db->prepare("UPDATE  `posts` SET  `views` =  views + 1 WHERE  `posts`.`id` =$post_id;");
         $statement->execute();  
               
 
@@ -67,7 +67,7 @@ if(isset($_POST['submit']))
       throw new Exception("All (*) Fields Are Required");  
     }
 
-  $statement = $db->prepare("INSERT INTO `cms`.`comments` (`id`, `date`, `name`, `username`, `post_id`, `email`, `website`, `image`, `comment`, `status`) VALUES (NULL, '$cs_date', '$cs_name', 'user', '$post_id', '$cs_email', '$cs_website', 'profile.jpg', '$cs_comment', 'pending')");
+  $statement = $db->prepare("INSERT INTO `comments` (`id`, `date`, `name`, `username`, `post_id`, `email`, `website`, `image`, `comment`, `status`) VALUES (NULL, '$cs_date', '$cs_name', 'user', '$post_id', '$cs_email', '$cs_website', 'profile.jpg', '$cs_comment', 'pending')");
   $statement->execute();
   
   if ($statement) {
