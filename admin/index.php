@@ -136,6 +136,18 @@ $cat_rows = $statement->rowCount();
           </div>
         </div>
       </div><hr>
+
+      <?php 
+
+      $statement = $db->prepare("SELECT * FROM users ORDER BY id DESC");
+      $statement->execute();
+      $result= $statement->fetchAll(PDO::FETCH_ASSOC);
+      if ($result) {
+        
+      
+
+       ?>
+
       <h3>New Users</h3>
       <table class="table table-hover table-striped">
         <thead>
@@ -148,43 +160,47 @@ $cat_rows = $statement->rowCount();
           </tr>
         </thead>
         <tbody>
+        <?php 
+
+        foreach ($result as $row) {
+          $user_id = $row['id'];
+          $user_date = getdate($row['date']);
+          $user_day = $user_date['mday'];
+          $user_month = substr($user_date['month'], 0,3);
+          $user_year = $user_date['year'];
+          $user_firstname = ucfirst($row['first_name']);
+          $user_lastname = ucfirst($row['last_name']);
+          $user_fullname = "$user_firstname $user_lastname";
+          $user_username = $row['username'];
+          $user_role = $row['role'];
+
+        
+
+         ?>
           <tr>
-            <td>1</td>
-            <td>25 Feb 2017</td>
-            <td>Md. Saiduzzaman</td>
-            <td>Tuhin</td>
-            <td>Admin</td>
+            <td><?php echo $user_id; ?></td>
+            <td><?php echo "$user_day $user_month $user_year"; ?></td>
+            <td><?php echo $user_fullname; ?></td>
+            <td><?php echo ucfirst($user_username); ?></td>
+            <td><?php echo ucfirst($user_role); ?></td>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>25 Feb 2017</td>
-            <td>Md. Saiduzzaman</td>
-            <td>Tuhin</td>
-            <td>Admin</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>25 Feb 2017</td>
-            <td>Md. Saiduzzaman</td>
-            <td>Tuhin</td>
-            <td>Admin</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>25 Feb 2017</td>
-            <td>Md. Saiduzzaman</td>
-            <td>Tuhin</td>
-            <td>Admin</td>
-          </tr><tr>
-            <td>1</td>
-            <td>25 Feb 2017</td>
-            <td>Md. Saiduzzaman</td>
-            <td>Tuhin</td>
-            <td>Admin</td>
-          </tr>
+          <?php } ?>
         </tbody>
       </table>
-      <a href="" class="btn btn-primary">View All Users</a><hr>
+      <a href="users.php" class="btn btn-primary">View All Users</a><hr>
+      <?php } ?>
+
+      <?php 
+
+      $statement = $db->prepare("SELECT * FROM posts ORDER BY id DESC");
+      $statement->execute();
+      $result= $statement->fetchAll(PDO::FETCH_ASSOC);
+      if ($result) {
+        
+      
+
+       ?>
+
       <h3>New Posts</h3>
       <table class="table">
         <thead>
@@ -197,44 +213,33 @@ $cat_rows = $statement->rowCount();
           </tr>
         </thead>
           <tbody>
+          <?php 
+
+        foreach ($result as $row) {
+          $post_id = $row['id'];
+          $post_date = getdate($row['date']);
+          $post_day = $post_date['mday'];
+          $post_month = substr($post_date['month'], 0,3);
+          $post_year = $post_date['year'];
+          $post_title = $row['title'];
+          $post_categories = $row['categories'];
+          $post_views = $row['views'];
+
+        
+
+         ?>
             <tr>
-              <td>1</td>
-              <td>25 Feb 2017</td>
-              <td>Learn PHP Full project in Bangla</td>
-              <td>Vedio Tutorials</td>
-              <td><i class="fa fa-eye" aria-hidden="true"></i> 28</td>
+              <td><?php echo $post_id; ?></td>
+              <td><?php echo "$post_day $post_month $post_year"; ?></td>
+              <td><?php echo $post_title; ?></td>
+              <td><?php echo $post_categories; ?></td>
+              <td><i class="fa fa-eye" aria-hidden="true"></i> <?php echo $post_views; ?></td>
             </tr>
-               <tr>
-                <td>1</td>
-                <td>25 Feb 2017</td>
-                <td>Learn PHP Full project in Bangla</td>
-                <td>Vedio Tutorials</td>
-                <td><i class="fa fa-eye" aria-hidden="true"></i> 28</td>
-               </tr>
-               <tr>
-                  <td>1</td>
-                  <td>25 Feb 2017</td>
-                  <td>Learn PHP Full project in Bangla</td>
-                  <td>Vedio Tutorials</td>
-                  <td><i class="fa fa-eye" aria-hidden="true"></i> 28</td>
-                </tr>
-               <tr>
-                  <td>1</td>
-                  <td>25 Feb 2017</td>
-                  <td>Learn PHP Full project in Bangla</td>
-                  <td>Vedio Tutorials</td>
-                  <td><i class="fa fa-eye" aria-hidden="true"></i> 28</td>
-                </tr>
-               <tr>
-                  <td>1</td>
-                  <td>25 Feb 2017</td>
-                  <td>Learn PHP Full project in Bangla</td>
-                  <td>Vedio Tutorials</td>
-                  <td><i class="fa fa-eye" aria-hidden="true"></i> 28</td>
-                </tr>
         </tbody>
+        <?php } ?>
       </table>
-         <a href="" class="btn btn-primary">View All Posts</a>
+         <a href="posts.php" class="btn btn-primary">View All Posts</a>
+         <?php } ?>
     </div>
   </div>
 </div>
