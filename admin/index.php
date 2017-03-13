@@ -9,6 +9,28 @@ if (!isset($_SESSION['username'])) {
 
   ?>
 
+
+<?php 
+
+$statement = $db->prepare("SELECT * FROM comments WHERE status = 'pending'");
+$statement->execute();
+$com_rows = $statement->rowCount();
+
+$statement = $db->prepare("SELECT * FROM posts ");
+$statement->execute();
+$post_rows = $statement->rowCount();
+
+
+$statement = $db->prepare("SELECT * FROM users ");
+$statement->execute();
+$users_rows = $statement->rowCount();
+
+
+$statement = $db->prepare("SELECT * FROM categories ");
+$statement->execute();
+$cat_rows = $statement->rowCount();
+
+?>
   </head>
   <body>
   <div id="wrapper">
@@ -33,12 +55,12 @@ if (!isset($_SESSION['username'])) {
                   <i class="fa fa-comment fa-5x" aria-hidden="true"></i>
                 </div>
                 <div class="col-xs-9">
-                  <div class="text-right huge">11</div>
+                  <div class="text-right huge"><?php echo $com_rows; ?></div>
                   <div class="text-right">New Comments</div>
                 </div>
               </div>
             </div>
-            <a href="">
+            <a href="comments.php">
               <div class="panel-footer">
                 <span class="pull-left">View All Comments</span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -55,12 +77,12 @@ if (!isset($_SESSION['username'])) {
                   <i class="fa fa-file-text fa-5x" aria-hidden="true"></i>
                 </div>
                 <div class="col-xs-9">
-                  <div class="text-right huge">18</div>
+                  <div class="text-right huge"><?php echo $post_rows; ?></div>
                   <div class="text-right">All Posts</div>
                 </div>
               </div>
             </div>
-            <a href="">
+            <a href="posts.php">
               <div class="panel-footer">
                 <span class="pull-left">View All Posts</span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -77,12 +99,12 @@ if (!isset($_SESSION['username'])) {
                   <i class="fa fa-users fa-5x" aria-hidden="true"></i>
                 </div>
                 <div class="col-xs-9">
-                  <div class="text-right huge">30</div>
+                  <div class="text-right huge"><?php echo $users_rows; ?></div>
                   <div class="text-right">All Users</div>
                 </div>
               </div>
             </div>
-            <a href="">
+            <a href="users.php">
               <div class="panel-footer">
                 <span class="pull-left">View All Users</span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -99,12 +121,12 @@ if (!isset($_SESSION['username'])) {
                   <i class="fa fa-folder-open fa-5x" aria-hidden="true"></i>
                 </div>
                 <div class="col-xs-9">
-                  <div class="text-right huge">11</div>
+                  <div class="text-right huge"><?php echo $cat_rows; ?></div>
                   <div class="text-right">All Categories</div>
                 </div>
               </div>
             </div>
-            <a href="">
+            <a href="categories.php">
               <div class="panel-footer">
                 <span class="pull-left">View All Categories</span>
                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
